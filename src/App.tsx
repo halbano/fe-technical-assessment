@@ -1,8 +1,8 @@
+import { Layout } from "./components/shared/Layout"
+
 function App() {
   return (
-    <div className="text-lg">
-      Technical assessment
-    </div>
+    <Layout />
   )
 }
 
