@@ -20,20 +20,12 @@ const userIdHash = (userId) => {
   if (!apiKey) {
     throw new Error('API_KEY environment variable is required');
   }
-  // Convert your api key to a buffer
-  const key = Buffer.from(apiKey, 'utf-8');
-  // Hash the message using HMAC-SHA256 and the key
-  const hash = crypto.createHmac('sha256', key).update(userId).digest('hex');
-  return hash;
+  return crypto.createHmac('sha256', Buffer.from(apiKey, 'utf-8')).update(userId).digest('hex');
 };
 
 app.post("/api/hash-user", (req, res) => {
-  console.log("API call to hash-user");
   const { userId } = req.body;
-  console.log("The userId value in the request body: ", userId);
-  const hashedUserId = userIdHash(userId);
-  console.log("The hashed userId value: ", hashedUserId);
-  res.json({ hashedUserId });
+  res.json({ hashedUserId: userIdHash(userId) });
 });
 
 app.get("/api/hello", (req, res) => {

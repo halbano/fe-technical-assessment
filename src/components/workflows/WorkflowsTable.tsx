@@ -3,7 +3,7 @@ import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { Button } from '../shared/Button';
 import { Tag, TagValue } from '../shared/Tag';
 import { WorkflowName } from './WorkflowName';
-import mockData from '../../data/workflows.json';
+// import mockData from '../../data/workflows.json';
 import { airopsInstance } from '../../data/airops';
 // TODO: Use types for the workflow data
 // interface WorkflowData {
@@ -42,8 +42,6 @@ export const WorkflowsTable: React.FC = () => {
     };
     fetchWorkflows();
   }, []);
-
-  console.log("Workflows: ", workflows);
 
   if (loading) {
     return <div><span className="text-muted">Loading workflows from AirOps...</span></div>;

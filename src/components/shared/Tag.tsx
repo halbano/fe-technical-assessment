@@ -26,9 +26,6 @@ export const Tag: React.FC<TagProps> = ({
     const colorDescriptions = values.map(color => color).join(', ');
     const tagNames = values.map(value => value.label).join(', ');
 
-    console.log(values);
-    console.log(count);
-
     return (
       <div
         className="inline-flex items-center space-x-2 border border-gray-200 rounded-full px-2 py-1"

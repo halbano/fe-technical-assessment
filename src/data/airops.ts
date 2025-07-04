@@ -19,7 +19,6 @@ class AirOpsService {
 
   private constructor() {
     this.config = getCurrentConfig() as any;
-    console.log("Config: ", this.config);
   }
 
   public static getInstance(): AirOpsService {
@@ -45,13 +44,10 @@ class AirOpsService {
       if (this.config.getHashedUserId && this.config.userId) {
         try {
           hashedUserId = await this.config.getHashedUserId(this.config.userId);
-          console.log('Successfully got hashed user ID from server', hashedUserId);
           this.isInitialized = true;
         } catch (error) {
           this.isInitialized = false;
-          console.log("error: ", error);
           console.warn('Failed to get hashed user ID from server, falling back to public mode:', error);
-          console.log(`AirOps service initialized in public mode for environment: ${this.config.environment}`);
           return;
         }
       }
@@ -63,15 +59,12 @@ class AirOpsService {
           workspaceId: this.config.workspaceId,
           hashedUserId: hashedUserId,
         });
-        console.log(`AirOps service initialized with authentication for environment: ${this.config.environment}`);
       } else {
         // Fall back to public mode
         this.airopsInstance = new AirOps();
-        console.log(`AirOps service initialized in public mode for environment: ${this.config.environment}`);
       }
       this.isInitialized = true;
     } catch (error) {
-      console.log("error: ", error);
       console.error('Failed to initialize AirOps service:', error);
       throw new Error('AirOps initialization failed');
     }
@@ -82,7 +75,6 @@ class AirOpsService {
       await this.initialize();
       return this.airopsInstance;
     }
-    console.log("AirOps instance: ", this.airopsInstance);
     return this.airopsInstance;
   }
 
@@ -95,25 +87,16 @@ class AirOpsService {
             appId: this.config.appId,
             version: 1,
             payload: {
-            inputs: {
-                filter: 'Workflow',
+              inputs: {
+                  filter: 'Workflow',
+              },
             },
-            },
-            stream: true, // Optional - Default false
-            streamCallback: (data: { content: string }) => {
-                console.log("Raw data streamCallback: ", data);
-            // Do something with the data
-            }, // Optional, required if stream is true
-            streamCompletedCallback: (data: { content: string }) => {
-                console.log("Raw data streamCompletedCallback: ", data);
-            // Do something with the data
-            }, // Optional
         });
     
         // Wait for result
         const result = await response.result();
-        console.log("Result: ", result);
-        return JSON.parse(result.output[0]?.content);
+        const content = result.output[0]?.content;
+        return JSON.parse(content);
     } catch (error) {
         console.error('Error fetching workflows:', error);
         throw error;
@@ -156,8 +139,6 @@ export const airopsInstance = {
 };
 
 // Auto-initialize with environment-specific config (now async)
-airopsService.initialize().then(() => {
-  console.log("AirOps service initialized");
-}).catch(error => {
+airopsService.initialize().catch(error => {
   console.error('Failed to auto-initialize AirOps service:', error);
 });

@@ -3,8 +3,6 @@
 // Secure function to get hashed user ID from server
 const getHashedUserId = async (userId: string): Promise<string> => {
   try {
-    console.log("API URL: ", import.meta.env.VITE_USER_HASH_API_HOST);
-    console.log("Getting hashed user ID for: ", userId);
     const response = await fetch(`${import.meta.env.VITE_USER_HASH_API_HOST}/api/hash-user`, {
       method: 'POST',
       headers: {
@@ -12,7 +10,6 @@ const getHashedUserId = async (userId: string): Promise<string> => {
       },
       body: JSON.stringify({ userId }),
     });
-    console.log("getHashedUserId Response: ", response);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

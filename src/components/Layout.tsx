@@ -17,7 +17,7 @@ export const Layout = () => {
 
     return (
         <div className="flex flex-col h-screen w-full">
-            {/* Mobile menu button when sidebar is closed */}
+            {/* Menu button when sidebar is closed */}
             {!isNavOpen && (
                 <Button
                     variant="ghost"
@@ -38,8 +38,9 @@ export const Layout = () => {
                 role="main"
                 aria-label="Workflows management"
             >
+                {/* Toolbar */}
                 <WorkflowsToolbar />
-                {/* Workflow Table */}
+                {/* Workflows Table */}
                 <WorkflowsTable />
             </main>
         </div>
