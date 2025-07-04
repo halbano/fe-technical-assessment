@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { IconButton } from '../shared/IconButton';
+import { Button } from '../shared/Button';
 import { Tag, TagValue } from '../shared/Tag';
 import { WorkflowName } from './WorkflowName';
-import { DocumentIcon, LightbulbIcon, SpreadsheetIcon, ExclamationCircleIcon } from '../shared/WorkflowIcons';
 import mockData from '../../data/workflows.json';
-
-// TODO: Integrate with AirOps API
+import { airopsInstance } from '../../data/airops';
+// TODO: Use types for the workflow data
 // interface WorkflowData {
 //   id: string;
 //   type: 'Workflow' | 'Agent';
@@ -27,6 +26,33 @@ import mockData from '../../data/workflows.json';
 // }
 
 export const WorkflowsTable: React.FC = () => {
+  const [workflows, setWorkflows] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchWorkflows = async () => {
+      try {
+        const workflows = await airopsInstance.getWorkflows();
+        setWorkflows(workflows);
+      } catch (error) {
+        console.error('Error fetching workflows:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchWorkflows();
+  }, []);
+
+  console.log("Workflows: ", workflows);
+
+  if (loading) {
+    return <div><span className="text-muted">Loading workflows from AirOps...</span></div>;
+  }
+
+  if (workflows.length === 0) {
+    return <div>No workflows found</div>;
+  }
+
   return (
     <div className="bg-white rounded-lg border-gray-200 overflow-hidden">
       <div className="overflow-x-auto">
@@ -38,36 +64,20 @@ export const WorkflowsTable: React.FC = () => {
           <thead>
             <tr role="row">
               <th
-                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
                 scope="col"
                 role="columnheader"
                 aria-sort="none"
               >
-                <button
-                  className="group inline-flex items-center space-x-1 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
-                  aria-label="Sort by type"
-                >
-                  <span>Type</span>
-                  <svg className="w-3 h-3 opacity-0 group-hover:opacity-100" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                </button>
+                <span>Type</span>
               </th>
               <th
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
                 scope="col"
                 role="columnheader"
                 aria-sort="none"
               >
-                <button
-                  className="group inline-flex items-center space-x-1 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
-                  aria-label="Sort by name"
-                >
-                  <span>Name</span>
-                  <svg className="w-3 h-3 opacity-0 group-hover:opacity-100" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                </button>
+                <span>Name</span>
               </th>
               <th
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
@@ -82,28 +92,19 @@ export const WorkflowsTable: React.FC = () => {
                 role="columnheader"
                 aria-sort="none"
               >
-                <button
-                  className="group inline-flex items-center space-x-1 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
-                  aria-label="Sort by last updated date"
-                >
-                  <span>Last Updated</span>
-                  <svg className="w-3 h-3 opacity-0 group-hover:opacity-100" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                </button>
+                <span>Last Updated</span>
               </th>
               <th
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
                 scope="col"
                 role="columnheader"
               >
-                <span className="sr-only">Actions</span>
-                Actions
+                <span>Actions</span>
               </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200" role="rowgroup">
-            {mockData.map((workflow, index) => (
+            {workflows.map((workflow: any, index: number) => (
               <tr
                 key={workflow.id}
                 className="hover:bg-gray-50 focus-within:bg-gray-50"
@@ -111,7 +112,7 @@ export const WorkflowsTable: React.FC = () => {
                 aria-rowindex={index + 2} // +2 because thead counts as row 1
               >
                 <td className="px-6 py-4 whitespace-nowrap" role="gridcell">
-                  <span className="text-sm text-gray-500">{workflow.type}</span>
+                  <span className="text-sm text-secondary">{workflow.type}</span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap" role="gridcell">
                   <WorkflowName
@@ -134,24 +135,26 @@ export const WorkflowsTable: React.FC = () => {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap" role="gridcell">
-                  <time className="text-sm text-gray-500" dateTime={workflow.lastUpdated}>
+                  <time className="text-sm text-secondary" dateTime={workflow.lastUpdated}>
                     {workflow.lastUpdated}
                   </time>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap" role="gridcell">
                   <div className="flex items-center space-x-2" role="group" aria-label={`Actions for ${workflow.name}`}>
-                    <IconButton
+                    <Button
+                      variant="outline"
                       size="sm"
                       aria-label={`Edit ${workflow.name} workflow`}
                     >
                       <PencilIcon className="w-4 h-4" aria-hidden="true" />
-                    </IconButton>
-                    <IconButton
+                    </Button>
+                    <Button
+                      variant="outline"
                       size="sm"
                       aria-label={`Delete ${workflow.name} workflow`}
                     >
                       <TrashIcon className="w-4 h-4" aria-hidden="true" />
-                    </IconButton>
+                    </Button>
                   </div>
                 </td>
               </tr>
@@ -159,10 +162,9 @@ export const WorkflowsTable: React.FC = () => {
           </tbody>
         </table>
       </div>
-
       {/* Table summary for screen readers */}
       <div className="sr-only" aria-live="polite" aria-atomic="true">
-        Table showing {mockData.length} workflows with columns for type, name, tags, last updated date, and actions.
+        Table showing {workflows.length} workflows
       </div>
     </div>
   );

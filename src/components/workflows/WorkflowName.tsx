@@ -24,14 +24,14 @@ const getEmojiForIconType = (iconType: string) => {
 export const WorkflowName: React.FC<WorkflowNameProps> = ({
   iconType = 'document',
   name,
-  iconColor = "text-gray-500"
+  iconColor = "text-muted"
 }) => {
   return (
     <div className="flex items-center space-x-3">
       <div className={`w-5 h-5 ${iconColor}`}>
         {getEmojiForIconType(iconType)}
       </div>
-      <span className="text-sm font-medium text-gray-900">{name}</span>
+      <span className="text-sm font-medium text-primary">{name}</span>
     </div>
   );
 }; 

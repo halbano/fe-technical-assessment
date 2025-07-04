@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useMediaQuery } from 'react-responsive'
 
 import { Bars3Icon } from "@heroicons/react/24/outline";
-import { WorkflowsTable } from "../workflows/WorkflowsTable";
-import { WorkflowsToolbar } from "../workflows/WorkflowsToolbar";
+import { WorkflowsTable } from "./workflows/WorkflowsTable";
+import { WorkflowsToolbar } from "./workflows/WorkflowsToolbar";
 import { Sidebar } from "./Sidebar";
+import { Button } from "./shared/Button";
 
 export const Layout = () => {
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
@@ -18,14 +19,15 @@ export const Layout = () => {
         <div className="flex flex-col h-screen w-full">
             {/* Mobile menu button when sidebar is closed */}
             {!isNavOpen && (
-                <button
-                    onClick={toggleNav}
-                    className="fixed top-4 left-4 z-50 inline-flex items-center p-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    className="fixed top-4 left-4 z-50"
                     aria-label="Open navigation sidebar"
-                    aria-expanded="false"
+                    onClick={toggleNav}
                 >
                     <Bars3Icon className="w-6 h-6" aria-hidden="true" />
-                </button>
+                </Button>
             )}
             {/* Sidebar */}
             <Sidebar isOpen={isNavOpen} toggleNav={toggleNav} />

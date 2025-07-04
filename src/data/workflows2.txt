@@ -1,0 +1,126 @@
+[
+    {
+      "id": "1",
+      "type": "Workflow",
+      "name": "Article Writer",
+      "iconType": "document",
+      "iconColor": "text-gray-500",
+      "tags": [
+        {
+            "color": "blue",
+            "label": "Content Creation"
+        },
+        {
+            "color": "purple",
+            "label": "Test"
+        }
+      ],
+      "lastUpdated": "Today"
+    },
+    {
+      "id": "2",
+      "type": "Agent",
+      "name": "Article Writer - Subproj",
+      "iconType": "document",
+      "iconColor": "text-gray-500",
+      "tags": [
+        {
+            "color": "blue",
+            "label": "Content Creation"
+        }
+      ],
+      "lastUpdated": "This Week"
+    },
+    {
+      "id": "3",
+      "type": "Workflow",
+      "name": "Content Idea Generator",
+      "iconType": "lightbulb",
+      "iconColor": "text-yellow-500",
+      "showAddTag": true,
+      "lastUpdated": "Yesterday"
+    },
+    {
+      "id": "4",
+      "type": "Workflow",
+      "name": "Workflow Name",
+      "iconType": "lightbulb",
+      "iconColor": "text-yellow-500",
+      "lastUpdated": "2 Days Ago"
+    },
+    {
+      "id": "5",
+      "type": "Workflow",
+      "name": "Workflow Name 2",
+      "iconType": "lightbulb",
+      "iconColor": "text-yellow-500",
+      "lastUpdated": "Yesterday"
+    },
+    {
+      "id": "6",
+      "type": "Agent",
+      "name": "Workflow Name 3",
+      "iconType": "exclamation",
+      "iconColor": "text-red-500",
+      "lastUpdated": "Today"
+    },
+    {
+      "id": "7",
+      "type": "Workflow",
+      "name": "Workflow Name 4",
+      "iconType": "exclamation",
+      "iconColor": "text-red-500",
+      "lastUpdated": "Yesterday"
+    },
+    {
+      "id": "8",
+      "type": "Workflow",
+      "name": "Workflow Name 5",
+      "iconType": "lightbulb",
+      "iconColor": "text-yellow-500",
+      "tags": [
+        {
+            "color": "blue",
+            "label": "Content Creation"
+        }
+      ],
+      "lastUpdated": "Today"
+    },
+    {
+      "id": "9",
+      "type": "Workflow",
+      "name": "Workflow Name 6",
+      "iconType": "lightbulb",
+      "iconColor": "text-yellow-500",
+      "tags": [],
+      "lastUpdated": "Today"
+    },
+    {
+      "id": "10",
+      "type": "Agent",
+      "name": "Workflow Name 7",
+      "iconType": "spreadsheet",
+      "iconColor": "text-green-500",
+      "tags": [
+        {
+            "color": "purple",
+            "label": "Test"
+        }
+      ],
+      "lastUpdated": "Today"
+    },
+    {
+      "id": "11",
+      "type": "Agent",
+      "name": "Spreadsheet.csv",
+      "iconType": "spreadsheet",
+      "iconColor": "text-green-500",
+      "tags": [
+        {
+            "color": "purple",
+            "label": "Test"
+        }
+      ],
+      "lastUpdated": "Today"
+    }
+  ]
