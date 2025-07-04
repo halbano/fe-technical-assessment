@@ -111,7 +111,7 @@ export const WorkflowsTable: React.FC = () => {
                 aria-rowindex={index + 2} // +2 because thead counts as row 1
               >
                 <td className="px-6 py-4 whitespace-nowrap" role="gridcell">
-                  <span className="text-sm text-secondary">{workflow.type}</span>
+                  <span className="text-sm text-muted">{workflow.type}</span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap" role="gridcell">
                   <WorkflowName
@@ -127,14 +127,16 @@ export const WorkflowsTable: React.FC = () => {
                         className="text-gray-400 hover:text-gray-600 focus:text-gray-600 text-sm flex items-center space-x-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
                         aria-label={`Add tag to ${workflow.name}`}
                       >
-                        <span aria-hidden="true">+</span>
-                        <span>Add Tag</span>
+                        <div className="flex items-center space-x-1 border border-gray-200 rounded-full px-2 py-1">
+                          <span aria-hidden="true">+</span>
+                          <span className="font-semibold">Add Tag</span>
+                        </div>
                       </button>
                     )}
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap" role="gridcell">
-                  <time className="text-sm text-secondary" dateTime={workflow.lastUpdated}>
+                  <time className="text-sm text-muted" dateTime={workflow.lastUpdated}>
                     {workflow.lastUpdated}
                   </time>
                 </td>
@@ -145,14 +147,14 @@ export const WorkflowsTable: React.FC = () => {
                       size="sm"
                       aria-label={`Edit ${workflow.name} workflow`}
                     >
-                      <PencilIcon className="w-4 h-4" aria-hidden="true" />
+                      <PencilIcon className="w-3 h-3" aria-hidden="true" />
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
                       aria-label={`Delete ${workflow.name} workflow`}
                     >
-                      <TrashIcon className="w-4 h-4" aria-hidden="true" />
+                      <TrashIcon className="w-3 h-3" aria-hidden="true" />
                     </Button>
                   </div>
                 </td>

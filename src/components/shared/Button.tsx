@@ -25,19 +25,19 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       primary: "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500 border border-blue-600 disabled:bg-blue-300",
       secondary: "bg-white text-primary hover:bg-gray-50 focus:ring-gray-500 border border-gray-300 disabled:bg-gray-100",
       ghost: "text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:ring-gray-500",
-      outline: "border border-gray-200 bg-gray-200 hover:bg-gray-300 focus:ring-gray-300",
+      outline: "border border-gray-100 bg-gray-100 hover:bg-gray-200 focus:ring-gray-200",
     };
 
     // For icon-only buttons, use square dimensions
     const iconSizeClasses = {
-      sm: "h-8 w-8",
+      sm: "h-6 w-6",
       default: "h-10 w-10",
       lg: "h-12 w-12",
     };
 
     // For text buttons, use padding and height
     const textSizeClasses = {
-      sm: "h-8 px-3 text-xs",
+      sm: "h-6 px-6 text-xs",
       default: "h-10 px-4 py-2 text-sm",
       lg: "h-11 px-8 text-base",
     };
