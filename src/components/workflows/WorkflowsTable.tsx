@@ -5,6 +5,7 @@ import { Tag, TagValue } from '../shared/Tag';
 import { WorkflowName } from './WorkflowName';
 // import mockData from '../../data/workflows.json';
 import { airopsInstance } from '../../data/airops';
+import { TableHeaderName } from './TableHeaderName';
 // TODO: Use types for the workflow data
 // interface WorkflowData {
 //   id: string;
@@ -62,42 +63,42 @@ export const WorkflowsTable: React.FC = () => {
           <thead>
             <tr role="row">
               <th
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
+                className="px-6 py-3 text-left tracking-wider"
                 scope="col"
                 role="columnheader"
                 aria-sort="none"
               >
-                <span>Type</span>
+                <span className="text-gray-900 font-semibold text-sm">Type</span>
               </th>
               <th
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
+                className="px-6 py-3 text-left tracking-wider"
                 scope="col"
                 role="columnheader"
                 aria-sort="none"
               >
-                <span>Name</span>
+                <TableHeaderName name="Name" />
               </th>
               <th
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
+                className="px-6 py-3 text-left tracking-wider"
                 scope="col"
                 role="columnheader"
               >
-                Tags
+                <TableHeaderName name="Tags" />
               </th>
               <th
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
+                className="px-6 py-3 text-left tracking-wider"
                 scope="col"
                 role="columnheader"
                 aria-sort="none"
               >
-                <span>Last Updated</span>
+                <TableHeaderName name="Last Updated" />
               </th>
               <th
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider"
+                className="px-6 py-3 text-left tracking-wider"
                 scope="col"
                 role="columnheader"
               >
-                <span>Actions</span>
+                <TableHeaderName name="Actions" />
               </th>
             </tr>
           </thead>
