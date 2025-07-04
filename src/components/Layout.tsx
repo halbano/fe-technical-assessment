@@ -34,7 +34,7 @@ export const Layout = () => {
             {/* Main Content */}
             <main
                 id="main-content"
-                className={`p-6 ${isNavOpen ? 'ml-64' : 'ml-0 mt-8'} transition-all duration-300 min-h-screen bg-white`}
+                className={`p-6 ${isNavOpen && !isMobile ? 'ml-64' : 'ml-0 mt-8'} transition-all duration-300 min-h-screen bg-white`}
                 role="main"
                 aria-label="Workflows management"
             >

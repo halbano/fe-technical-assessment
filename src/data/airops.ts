@@ -39,9 +39,9 @@ class AirOpsService {
     }
 
     try {
-      // Get hashed user ID from server if function is available
+      // Get hashed user ID from server
       let hashedUserId = this.config.hashedUserId;
-      if (this.config.getHashedUserId && this.config.userId) {
+      if (!hashedUserId && this.config.getHashedUserId && this.config.userId) {
         try {
           hashedUserId = await this.config.getHashedUserId(this.config.userId);
           this.isInitialized = true;
@@ -60,7 +60,7 @@ class AirOpsService {
           hashedUserId: hashedUserId,
         });
       } else {
-        // Fall back to public mode
+        // Fall back
         this.airopsInstance = new AirOps();
       }
       this.isInitialized = true;
@@ -73,16 +73,14 @@ class AirOpsService {
   public async getAirOpsInstance(): Promise<any> {
     if (!this.isInitialized || !this.airopsInstance) {
       await this.initialize();
-      return this.airopsInstance;
     }
     return this.airopsInstance;
   }
 
-  // Convenience methods for common operations
   public async getWorkflows(): Promise<any[]> {
     try {
         const instance = await this.getAirOpsInstance();
-        // Execute an app
+        // Execute the app
         const response = await instance.apps.execute({
             appId: this.config.appId,
             version: 1,
@@ -92,8 +90,6 @@ class AirOpsService {
               },
             },
         });
-    
-        // Wait for result
         const result = await response.result();
         const content = result.output[0]?.content;
         return JSON.parse(content);
@@ -101,23 +97,6 @@ class AirOpsService {
         console.error('Error fetching workflows:', error);
         throw error;
     }
-  }
-
-  
-  // Method to update configuration if needed
-  public updateConfig(newConfig: Partial<AirOpsConfig>): void {
-    if (this.isInitialized) {
-      console.warn('Cannot update config after initialization. Create a new instance if needed.');
-      return;
-    }
-    this.config = { ...this.config, ...newConfig };
-  }
-
-  // Method to reset the service (useful for testing)
-  public reset(): void {
-    this.airopsInstance = null;
-    this.isInitialized = false;
-    AirOpsService.instance = null as any;
   }
 
   // Getter for current configuration
@@ -130,15 +109,8 @@ class AirOpsService {
   }
 }
 
-// Export the singleton instance
 export const airopsService = AirOpsService.getInstance();
 
-// Export for backward compatibility (but recommend using the service methods)
 export const airopsInstance = {
   getWorkflows: () => airopsService.getWorkflows(),
 };
-
-// Auto-initialize with environment-specific config (now async)
-airopsService.initialize().catch(error => {
-  console.error('Failed to auto-initialize AirOps service:', error);
-});
